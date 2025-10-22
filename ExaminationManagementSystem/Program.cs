@@ -51,7 +51,6 @@ namespace ExaminationManagementSystem
                     #endregion
 
 
-
                     #region AddQuestion
 
 
@@ -73,6 +72,7 @@ namespace ExaminationManagementSystem
                                 new TrueFalseQuest(i + 1, questionText, questionMark, questionLevel, questionType, correctAnswer)
                                 );
                             break;
+
                         case Question.QuestionType.ChoiceOneQuestion:
                             options = new List<string>();
 
@@ -128,58 +128,7 @@ namespace ExaminationManagementSystem
 
 
             //List<QuestAnswer> studentAnswers = new List<QuestAnswer>();
-
-            Console.WriteLine("\n\n--- Exam Questions ---\n\n");
-            Console.WriteLine($"Time of the exam is: {DateAndTime.Now}");
-
-            Console.Write("Enter Student Name: ");
-
-            string studentName = Console.ReadLine();
-
-            Student student = new Student(studentName);
-
-
-            for (int i = 0; i < numberOfQuestions; i++)
-            {
-                Question currentQuestion = exam.GetQuestion1(i);
-
-                Console.Write($"\nQuestion {i + 1}:");
-
-                currentQuestion.PrintQuestion(); 
-
-                Console.Write("Your answer: ");
-
-                string userAnswer = Console.ReadLine()?.Trim().ToLower();
-
-                if (string.IsNullOrWhiteSpace(userAnswer))
-                {
-                    userAnswer = "NOAnswer";
-                }
-
-                student.AddAnswer(new QuestAnswer(i, userAnswer));
-
-
-            }
-
-
-            Console.WriteLine("\n--- Total Mark ---\n");
-
-            student.ShowFinalMark(exam);
-          
-
-            Console.WriteLine("\n--- Exam Summary ---\n");
-            foreach (var answer in student.QuestAnswers)
-            {
-                Question question = exam.GetQuestion1(answer.QuestionIndex);
-
-                if (!question.CheckIfCorrect(answer))
-                {
-                    question.PrintWrongAnswer(answer);
-
-                    Console.WriteLine("-----------------------------");
-                }
-            }
-
+            exam.StartStudentExam(exam,numberOfQuestions);
 
         }
 
