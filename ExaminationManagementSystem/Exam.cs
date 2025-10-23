@@ -57,61 +57,7 @@ namespace ExaminationManagementSystem
             return TotalExamMark;
         }
 
-        public void StartStudentExam(Exam exam,int numberOfQuestions)
-        {
-
-            Console.WriteLine("\n\n--- Exam Questions ---\n\n");
-            Console.WriteLine($"Time of the exam is: {DateAndTime.Now}");
-
-            Console.Write("Enter Student Name: ");
-
-            string studentName = Console.ReadLine();
-
-            Student student = new Student(studentName);
-
-
-            for (int i = 0; i < numberOfQuestions; i++)
-            {
-                Question currentQuestion = exam.GetQuestion1(i);
-
-                Console.Write($"\nQuestion {i + 1}:");
-
-                currentQuestion.PrintQuestion();
-
-                Console.Write("Your answer: ");
-
-                string userAnswer = Console.ReadLine()?.Trim().ToLower();
-
-                if (string.IsNullOrWhiteSpace(userAnswer))
-                {
-                    userAnswer = "NOAnswer";
-                }
-
-                student.AddAnswer(new QuestAnswer(i, userAnswer));
-
-
-            }
-
-
-            student.ShowFinalMark(exam);
-
-
-            Console.WriteLine("\n--- WrongAnswer ---\n");
-            foreach (var answer in student.QuestAnswers)
-            {
-                Question question = exam.GetQuestion1(answer.QuestionIndex);
-
-                if (!question.CheckIfCorrect(answer))
-                {
-                    question.PrintWrongAnswer(answer);
-
-                    Console.WriteLine("-----------------------------");
-                }
-            }
-
-
-        }
-
+    
 
     }
 }
