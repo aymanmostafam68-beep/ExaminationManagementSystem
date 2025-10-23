@@ -181,16 +181,20 @@ namespace ExaminationManagementSystem
             student.ShowFinalMark(exam);
 
 
-            Console.WriteLine("\n--- WrongAnswer ---\n");
-            foreach (var answer in student.QuestAnswers)
+            if (student.QuestAnswers.Count > 0)
             {
-                Question question = exam.GetQuestion1(answer.QuestionIndex);
+                Console.WriteLine("\n--- WrongAnswer ---\n");
 
-                if (!question.CheckIfCorrect(answer))
+                foreach (var answer in student.QuestAnswers)
                 {
-                    question.PrintWrongAnswer(answer);
+                    Question question = exam.GetQuestion1(answer.QuestionIndex);
 
-                    Console.WriteLine("-----------------------------");
+                    if (!question.CheckIfCorrect(answer))
+                    {
+                        question.PrintWrongAnswer(answer);
+
+                        Console.WriteLine("-----------------------------");
+                    }
                 }
             }
 
